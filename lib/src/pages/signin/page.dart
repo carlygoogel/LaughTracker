@@ -1,5 +1,10 @@
+import 'dart:async';
 import 'package:myapp/src/teta_files/imports.dart';
 import 'package:myapp/auth/auth_state.dart';
+
+import 'package:auth_buttons/auth_buttons.dart';
+import 'package:paged_vertical_calendar/paged_vertical_calendar.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 
 class PageSignIn extends StatefulWidget {
   const PageSignIn({
@@ -24,7 +29,6 @@ class _StateSignIn extends AuthState<PageSignIn>
   @override
   void initState() {
     super.initState();
-
     TetaCMS.instance.analytics.insertEvent(
       TetaAnalyticsType.usage,
       'App usage: view page',
@@ -32,6 +36,13 @@ class _StateSignIn extends AuthState<PageSignIn>
         'name': "SignIn",
       },
       isUserIdPreferableIfExists: true,
+    );
+
+    unawaited(
+      Future.delayed(
+        Duration.zero,
+        () async {},
+      ),
     );
   }
 
@@ -60,23 +71,22 @@ class _StateSignIn extends AuthState<PageSignIn>
                         left: 30,
                         top: 180,
                       ),
-                      child: Text(
-                        r'''Email''',
-                        style: GoogleFonts.poppins(
-                          textStyle: TextStyle(
-                            color: Color(0xFF000000).withOpacity(1),
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                            fontStyle: FontStyle.normal,
-                            decoration: TextDecoration.none,
+                      child: Text(r'''Email''',
+                          style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                              color: Color(0xFF000000).withOpacity(1),
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18,
+                              fontStyle: FontStyle.normal,
+                              decoration: TextDecoration.none,
+                            ),
                           ),
-                        ),
-                        textAlign: TextAlign.left,
-                        textDirection: TextDirection.ltr,
-                      ),
+                          textAlign: TextAlign.left,
+                          textDirection: TextDirection.ltr,
+                          maxLines: 1),
                     ),
                     Opacity(
-                      opacity: 1,
+                      opacity: 0.5,
                       child: Container(
                         margin: const EdgeInsets.only(
                           left: 25,
@@ -154,10 +164,7 @@ class _StateSignIn extends AuthState<PageSignIn>
                           ),
                           textAlign: TextAlign.left,
                           textDirection: TextDirection.ltr,
-                          maxLines: 1,
                           minLines: 1,
-                          maxLength: null,
-                          obscureText: false,
                           showCursor: true,
                           autocorrect: false,
                         ),
@@ -167,23 +174,22 @@ class _StateSignIn extends AuthState<PageSignIn>
                       padding: const EdgeInsets.only(
                         left: 30,
                       ),
-                      child: Text(
-                        r'''Password''',
-                        style: GoogleFonts.poppins(
-                          textStyle: TextStyle(
-                            color: Color(0xFF000000).withOpacity(1),
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                            fontStyle: FontStyle.normal,
-                            decoration: TextDecoration.none,
+                      child: Text(r'''Password''',
+                          style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                              color: Color(0xFF000000).withOpacity(1),
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18,
+                              fontStyle: FontStyle.normal,
+                              decoration: TextDecoration.none,
+                            ),
                           ),
-                        ),
-                        textAlign: TextAlign.left,
-                        textDirection: TextDirection.ltr,
-                      ),
+                          textAlign: TextAlign.left,
+                          textDirection: TextDirection.ltr,
+                          maxLines: 1),
                     ),
                     Opacity(
-                      opacity: 1,
+                      opacity: 0.5,
                       child: Container(
                         margin: const EdgeInsets.only(
                           left: 25,
@@ -261,10 +267,7 @@ class _StateSignIn extends AuthState<PageSignIn>
                           ),
                           textAlign: TextAlign.left,
                           textDirection: TextDirection.ltr,
-                          maxLines: 1,
                           minLines: 1,
-                          maxLength: null,
-                          obscureText: true,
                           showCursor: true,
                           autocorrect: false,
                         ),
@@ -276,32 +279,6 @@ class _StateSignIn extends AuthState<PageSignIn>
                       ),
                       child: Center(
                         child: GestureDetector(
-                          onTap: () async {
-                            if (email != null && password != null) {
-                              setState(() {
-                                status = 'Loading';
-                              });
-                              final response = await Supabase
-                                  .instance.client.auth
-                                  .signIn(email: email, password: password);
-                              if (response.error != null ||
-                                  response.user == null) {
-                                setState(() {
-                                  status = 'Failed';
-                                });
-                              } else {
-                                setState(() {
-                                  status = 'Success';
-                                });
-                                await Navigator.push<void>(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => PageHomePage(),
-                                  ),
-                                );
-                              }
-                            }
-                          },
                           child: Container(
                               width: 250,
                               height: 70,
@@ -362,20 +339,19 @@ class _StateSignIn extends AuthState<PageSignIn>
                             top: 8,
                             right: 53,
                           ),
-                          child: Text(
-                            r'''Remember me''',
-                            style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
-                                color: Color(0xFFBBBBBB).withOpacity(1),
-                                fontWeight: FontWeight.w500,
-                                fontSize: 14,
-                                fontStyle: FontStyle.normal,
-                                decoration: TextDecoration.none,
+                          child: Text(r'''Remember me''',
+                              style: GoogleFonts.poppins(
+                                textStyle: TextStyle(
+                                  color: Color(0xFFBBBBBB).withOpacity(1),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14,
+                                  fontStyle: FontStyle.normal,
+                                  decoration: TextDecoration.none,
+                                ),
                               ),
-                            ),
-                            textAlign: TextAlign.left,
-                            textDirection: TextDirection.ltr,
-                          ),
+                              textAlign: TextAlign.left,
+                              textDirection: TextDirection.ltr,
+                              maxLines: 1),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
@@ -383,20 +359,19 @@ class _StateSignIn extends AuthState<PageSignIn>
                           ),
                           child: TextButton(
                             onPressed: () async {},
-                            child: Text(
-                              r'''Forgot Password?''',
-                              style: GoogleFonts.poppins(
-                                textStyle: TextStyle(
-                                  color: Color(0xFFBBBBBB).withOpacity(1),
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14,
-                                  fontStyle: FontStyle.normal,
-                                  decoration: TextDecoration.underline,
+                            child: Text(r'''Forgot password?''',
+                                style: GoogleFonts.poppins(
+                                  textStyle: TextStyle(
+                                    color: Color(0xFFBBBBBB).withOpacity(1),
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14,
+                                    fontStyle: FontStyle.normal,
+                                    decoration: TextDecoration.underline,
+                                  ),
                                 ),
-                              ),
-                              textAlign: TextAlign.left,
-                              textDirection: TextDirection.ltr,
-                            ),
+                                textAlign: TextAlign.left,
+                                textDirection: TextDirection.ltr,
+                                maxLines: 1),
                           ),
                         ),
                       ],
@@ -413,7 +388,7 @@ class _StateSignIn extends AuthState<PageSignIn>
                         },
                         child: Container(
                             width: 70,
-                            height: 60,
+                            height: 80,
                             decoration: BoxDecoration(
                               color: Color(0xFFFFFFFF).withOpacity(1),
                               borderRadius: BorderRadius.only(
@@ -431,7 +406,7 @@ class _StateSignIn extends AuthState<PageSignIn>
                                   textStyle: TextStyle(
                                     color: Color(0xFF62FFFF).withOpacity(1),
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 16,
+                                    fontSize: 18,
                                     fontStyle: FontStyle.normal,
                                     decoration: TextDecoration.none,
                                   ),
@@ -445,33 +420,7 @@ class _StateSignIn extends AuthState<PageSignIn>
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 300,
-                  top: 750,
-                ),
-                child: Container(
-                  width: 40,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFF0FF73).withOpacity(1),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
-                      bottomRight: Radius.circular(30),
-                      bottomLeft: Radius.circular(30),
-                    ),
-                  ),
-                  child: Icon(
-                    MdiIcons.fromString('emoticon-happy-outline'),
-                    size: 40,
-                    color: Color(0xFF000000).withOpacity(1),
-                  ),
-                ),
-              ),
               Container(
-                margin: const EdgeInsets.only(
-                  top: 10,
-                ),
                 width: double.maxFinite,
                 height: 180,
                 decoration: BoxDecoration(
@@ -479,75 +428,77 @@ class _StateSignIn extends AuthState<PageSignIn>
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
-                    bottomRight: Radius.circular(50),
-                    bottomLeft: Radius.circular(50),
+                    bottomRight: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
                   ),
                 ),
-                child: Container(
-                  margin: const EdgeInsets.only(
-                    left: 295,
-                    top: 680,
-                    right: 20,
-                  ),
-                  width: double.maxFinite,
-                  height: 10,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFF7F946).withOpacity(1),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
-                      bottomRight: Radius.circular(30),
-                      bottomLeft: Radius.circular(30),
+                child: Text(r'''Remember me''',
+                    style: GoogleFonts.poppins(
+                      textStyle: TextStyle(
+                        color: Color(0xFFBBBBBB).withOpacity(1),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        fontStyle: FontStyle.normal,
+                        decoration: TextDecoration.none,
+                      ),
                     ),
-                  ),
-                  child: const SizedBox(),
-                ),
+                    textAlign: TextAlign.left,
+                    textDirection: TextDirection.ltr,
+                    maxLines: 1),
               ),
-              const SizedBox(),
               Container(
                 margin: const EdgeInsets.only(
-                  left: 208,
-                  top: 700,
-                  right: 90,
+                  top: 100,
                 ),
                 width: double.maxFinite,
-                height: 75,
+                height: 100,
                 decoration: BoxDecoration(
                   color: Color(0xFFF7E809).withOpacity(1),
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(40),
-                    topRight: Radius.circular(40),
-                    bottomRight: Radius.circular(40),
-                    bottomLeft: Radius.circular(40),
+                    topLeft: Radius.circular(25),
+                    topRight: Radius.circular(25),
+                    bottomRight: Radius.circular(25),
+                    bottomLeft: Radius.circular(25),
                   ),
                 ),
-                child: Icon(
-                  MdiIcons.fromString('emoticon-happy-outline'),
-                  size: 80,
-                  color: Color(0xFF000000).withOpacity(1),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(
-                  left: 295,
-                  top: 680,
-                  right: 20,
-                ),
-                width: double.maxFinite,
-                height: 60,
-                decoration: BoxDecoration(
-                  color: Color(0xFFF7F946).withOpacity(1),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                    bottomRight: Radius.circular(30),
-                    bottomLeft: Radius.circular(30),
-                  ),
-                ),
-                child: Icon(
-                  MdiIcons.fromString('emoticon-happy-outline'),
-                  size: 60,
-                  color: Color(0xFF000000).withOpacity(1),
+                child: Stack(
+                  children: [
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          left: 4,
+                        ),
+                        child: Text(r'''LaughTracker''',
+                            style: GoogleFonts.poppins(
+                              textStyle: TextStyle(
+                                color: Color(0xFF62FFFF).withOpacity(1),
+                                fontWeight: FontWeight.w700,
+                                fontSize: 35,
+                                fontStyle: FontStyle.normal,
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
+                            textAlign: TextAlign.left,
+                            textDirection: TextDirection.ltr,
+                            maxLines: 1),
+                      ),
+                    ),
+                    Center(
+                      child: Text(r'''LaughTracker''',
+                          style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                              color: Color(0xFF000000).withOpacity(1),
+                              fontWeight: FontWeight.w700,
+                              fontSize: 35,
+                              fontStyle: FontStyle.normal,
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                          textAlign: TextAlign.left,
+                          textDirection: TextDirection.ltr,
+                          maxLines: 1),
+                    ),
+                  ],
                 ),
               ),
               Container(
@@ -555,6 +506,56 @@ class _StateSignIn extends AuthState<PageSignIn>
                 height: 50,
                 decoration: BoxDecoration(
                   color: Color(0xFFF0FF73).withOpacity(1),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                    bottomLeft: Radius.circular(20),
+                  ),
+                ),
+                child: GestureDetector(
+                  child: Container(
+                      width: 70,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFFFFFFF).withOpacity(1),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8),
+                          topRight: Radius.circular(8),
+                          bottomRight: Radius.circular(8),
+                          bottomLeft: Radius.circular(8),
+                        ),
+                        border: null,
+                      ),
+                      child: Center(
+                        child: Text(
+                          '''Sign Up''',
+                          style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                              color: Color(0xFF62FFFF).withOpacity(1),
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18,
+                              fontStyle: FontStyle.normal,
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                          textAlign: TextAlign.center,
+                          textDirection: TextDirection.ltr,
+                        ),
+                      )),
+                ),
+              ),
+              Container(
+                width: double.maxFinite,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Color(0xFFF0FF73).withOpacity(1),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15),
+                    bottomRight: Radius.circular(15),
+                    bottomLeft: Radius.circular(15),
+                  ),
                 ),
                 child: const SizedBox(),
               ),

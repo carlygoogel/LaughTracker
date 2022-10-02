@@ -11,8 +11,8 @@
       DeviceOrientation.portraitUp,
     ]);
     TetaCMS.initialize(
-      token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNhcmx5Z29vZ2VsQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwcm9qZWN0cyI6WzE1MzMyNiwxMDM5MDAsMTUwMTkwLDEwNTc0N10sImltYWdlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUl0YnZtbldqUFNrbFBocGZIMXpzVUgzLVA3U2EtWmxfbDk4ZjNVMFpzazQ9czk2LWMiLCJuYW1lIjoiQ2FybHkgR29vZ2VsIiwiZW1pdHRlciI6IlRldGEtQXV0aCIsImlhdCI6MTY2MzUxNzE5OSwiZXhwIjo0ODE5Mjc3MTk5fQ.DHW2WwA1SitjD5atkZDDpxO0HTvAtJi8v-rDHM5ClHI',
-      prjId: 105747,
+      token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNhcmx5Z29vZ2VsQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwcm9qZWN0cyI6WzEwNTc0NywxNTAxOTAsMTUzMzI2LDEwMzkwMF0sImltYWdlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUl0YnZtbldqUFNrbFBocGZIMXpzVUgzLVA3U2EtWmxfbDk4ZjNVMFpzazQ9czk2LWMiLCJuYW1lIjoiQ2FybHkgR29vZ2VsIiwiZW1pdHRlciI6IlRldGEtQXV0aCIsImlhdCI6MTY2NDczOTE3MSwiZXhwIjo0ODIwNDk5MTcxfQ.noaIsFYZD3zvClPE3bkSxEhMWtpqb0GboCq2Q4gSFE8',
+      prjId: 153326,
     );
     
       Supabase.initialize(
@@ -64,12 +64,12 @@
             final orientation,
             final deviceType,
           ) => MaterialApp(
-            title: 'LaughTracker',
+            title: 'LaughTracker2',
             supportedLocales: TranslatorGenerator.instance.supportedLocales,
             localizationsDelegates: TranslatorGenerator.instance.localizationsDelegates,
             home: SplashScreenView(
-              navigateRoute: PageSignIn(
-                key: ValueKey('PageSignIn English'),
+              navigateRoute: PageEntryPoint(
+                key: ValueKey('PageEntryPoint English'),
               ),
               duration: 2200,
               imageSize: 80,
